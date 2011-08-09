@@ -1,0 +1,36 @@
+﻿Type listType = typeof (List<>).MakeGenericType(type);
+
+object instance = Activator.CreateInstance(listType);
+
+return (IList) instance;
+
+
+--------
+
+	var helperType = typeof (Helper<>).MakeGenericType(type);
+
+	var instance = (Helper) Activator.CreateInstance(helperType);
+
+	return instance.DoWork();
+}
+
+private interface Helper
+{
+	IList DoWork();
+}
+
+private class Helper<T> :Helper
+{
+	public IList DoWork()
+	{
+		var list = new List<T>
+			{
+				default(T), 
+				default(T), 
+				default(T), 
+				default(T), 
+				default(T)
+			};
+
+		return list;
+	}
